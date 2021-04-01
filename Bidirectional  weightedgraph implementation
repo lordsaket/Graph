@@ -1,0 +1,45 @@
+#include <iostream>
+#include<cstring>
+#include<unordered_map>
+#include<list>
+using namespace std;
+class Graph
+{
+  // Adjacency list
+  unordered_map < string, list < pair < string, int >>>G;
+public:
+  void addEdge (string x, string y, bool bidir, int wt)
+  {
+    G[x].push_back (make_pair (y, wt));
+    if (bidir)
+      {
+	G[y].push_back (make_pair (x, wt));
+      }
+  }
+  void printGraph ()
+  {
+  for (auto p:G)
+      {
+	string city = p.first;
+	list < pair < string, int >>nbrs = p.second;
+	cout << city << "->";
+      for (auto nbr:nbrs)
+	  {
+	    cout << nbr.first << " " << nbr.second << " ";
+	  }
+	cout << endl;
+      }
+  }
+};
+
+int main ()
+{
+  Graph G;
+  G.addEdge ("A", "B", true, 2);
+  G.addEdge ("A", "C", true, 3);
+  G.addEdge ("A", "D", true, 4);
+  G.addEdge ("B", "C", true, 2);
+  G.addEdge ("A", "E", true, 5);
+  G.printGraph();
+  return 0;
+}
